@@ -2,27 +2,31 @@
 
 int main() {
     
-    unsigned long int varPopulacao_01 = 0, varPopulacao_02 = 0; //PODE RECEBER NÚMEROS MAIORES
+    unsigned long int varPopulacao_01 = 0, varPopulacao_02 = 0; //DADOS DE POPULAÇÃO
 
-    int varPontosTuristicos_01 = 0, varPontosTuristicos_02 = 0;
+    int varPontosTuristicos_01 = 0, varPontosTuristicos_02 = 0; //DADOS DE PONTOS TURÍSTICOS
 
-    int varSelecaoModoDisputa = 0, varSelecaoAtributoDisputa = 0;
+    int varSelecaoModoDisputa = 0; //PRIMEIRO SWITCH (SELECÃO MODO DE DISPUTA)
 
-    int varPontuacao_01 = 0, varPontuacao_02 = 0, varEmpate = 0;
+    int varSelecPopulacao = 0, varSelecArea = 0, varSelecPIB = 0, varSelecPontosTuristicos = 0, varSelecDensidadePopulacional = 0, varSelecPIBperCapita = 0, varSelecSuperPoder = 0;
 
-    float varPIB_01 = 0, varPIB_02 = 0;
+    int varDisputaAtributo01 = 0, varDisputaAtributo02 = 0; //SELEÇÃO DOS ATRIBUTOS DA DISPUTA
 
-    float varArea_01 = 0, varArea_02 = 0;
+    int varPontuacao_01 = 0, varPontuacao_02 = 0, varEmpate = 0; //PONTUAÇÕES OU EMPATE
 
-    float varDensidadePopulacional_01 = 0, varDensidadePopulacional_02 = 0;
+    float varPIB_01 = 0, varPIB_02 = 0; //DADOS DE PIB
 
-    float varPIBperCapita_01 = 0, varPIBperCapita_02 = 0;
+    float varArea_01 = 0, varArea_02 = 0; //DADOS DE ÁREA
 
-    float varSuperPoder_01 = 0, varSuperPoder_02 = 0;
+    float varDensidadePopulacional_01 = 0, varDensidadePopulacional_02 = 0; //DADOS DE DENSIDADE POPULACIONAL (CALCULADO)
 
-    char varCidade_01[51], varCidade_02[51];
+    float varPIBperCapita_01 = 0, varPIBperCapita_02 = 0; //DADOS DE PIB PER CAPITA (CALCULADO)
 
-    char varEstado_01[3], varEstado_02[3];
+    float varSuperPoder_01 = 0, varSuperPoder_02 = 0;  //DADOS DE SUPER PODER (CALCULADO)
+
+    char varCidade_01[51], varCidade_02[51]; //NOME CIDADES
+
+    char varEstado_01[3], varEstado_02[3];  //SIGLA ESTADOS
 
     //INTRUÇÕES INICIAIS
     printf("==== SUPER TRUNFO CIDADES ====");
@@ -31,7 +35,7 @@ int main() {
     printf("\nO cadastro de cada carta será feito separadamente.\n");
     printf("\nVamos começar!\n"); 
 
-    //DADOS PRIMEIRA CARTA
+    //COLETA DE DADOS DA PRIMEIRA CARTA
     printf("\nCadastro Primeira Carta");
 
     printf("\nInforme a sigla do estado da primeira cidade (exemplo: BA para Bahia):\n");
@@ -52,7 +56,7 @@ int main() {
     printf("\nInforme o número de pontos turísticos da primeira cidade:\n");
     scanf("%d", &varPontosTuristicos_01);
 
-            //CÁLCULOS
+            //CÁLCULOS PRIMEIRA CARTA
             varDensidadePopulacional_01 = varPopulacao_01/varArea_01;
             varPIBperCapita_01 = varPIB_01/varPopulacao_01;
             varSuperPoder_01 = (
@@ -63,7 +67,7 @@ int main() {
                 1.0f / varDensidadePopulacional_01
             );
               
-    //DADOS SEGUNDA CARTA
+    //COLETA DE DADOS DA SEGUNDA CARTA
     printf("\n\nChegou a vez de cadastrar os dados da segunda carta.\nA estrutura é a mesma da primeira.\nVamos lá?\n\nCadastro da Segunda Carta");
 
     printf("\nInforme a sigla do estado da segunda cidade:\n");
@@ -84,7 +88,7 @@ int main() {
     printf("\nQuantos pontos turísticos a segunda cidade oferece aos visitantes?\n");
     scanf("%d", &varPontosTuristicos_02);
 
-            //CÁLCULOS
+            //CÁLCULOS SEGUNDA CARTA
             varDensidadePopulacional_02 = varPopulacao_02/varArea_02;
             varPIBperCapita_02 = varPIB_02/varPopulacao_02;
             varSuperPoder_02 = (
@@ -93,8 +97,243 @@ int main() {
                 varPIB_02 +
                 varPIBperCapita_02 +
                 1.0f / varDensidadePopulacional_02
-            );           
+            );
+    //O JOGADOR FARÁ SELEÇÃO DO MODO DE DISPUTA
+    printf("\n\nAgora que as duas cartas foram cadastradas, selecione como deverá ser a disputa:");
+    printf("\n1. Comparação de TODOS os Atributos.");
+    printf("\n2. Comparação de UM Atributo.");
+    printf("\n3. Comparação de DOIS Atributo.");
+    printf("\nSelecione: ");
+    scanf("%d", &varSelecaoModoDisputa);
 
+    switch (varSelecaoModoDisputa)
+    {
+    case 1:
+    //COMPARAÇÃO DE TODOS OS ATRIBUTOS
+        varSelecPopulacao = 1;
+        varSelecArea = 1;
+        varSelecPIB = 1;
+        varSelecPontosTuristicos = 1;
+        varSelecDensidadePopulacional = 1;
+        varSelecPIBperCapita = 1;
+        varSelecSuperPoder = 1;
+        break;
+    
+    case 2:
+    //COMPARAÇÃO DE APENAS UM ATRIBUTO
+        printf("\nEscolha qual Atributo será comparado:");
+        printf("\n1. População");
+        printf("\n2. Área");
+        printf("\n3. PIB");
+        printf("\n4. Pontos Turíticos");
+        printf("\n5. Densidade Populacional (menor)");
+        printf("\n6. PIB per Capita");
+        printf("\nEscolha: ");
+        scanf("%d", &varDisputaAtributo01);
+
+        switch (varDisputaAtributo01)
+        {
+        case 1:
+            varSelecPopulacao = 1;
+            break;
+        case 2:
+            varSelecArea = 1;
+            break;
+        case 3:
+            varSelecPIB = 1;
+            break;
+        case 4:
+            varSelecPontosTuristicos = 1;
+            break;
+        case 5:
+            varSelecDensidadePopulacional = 1;
+            break;
+        case 6:
+            varSelecPIBperCapita = 1;
+            break;
+        
+        default:
+            printf("Opção Inválida!");
+            break;
+        }
+        break;
+    
+    case 3:
+        //COMPARAÇÃO DE DOIS ATRIBUTOS
+            //SELEÇÃO PRIMEIRO ATRIBUTO
+        printf("\nEscolha o primeiro Atributo que será comparado:");
+        printf("\n1. População");
+        printf("\n2. Área");
+        printf("\n3. PIB");
+        printf("\n4. Pontos Turíticos");
+        printf("\n5. Densidade Populacional (menor)");
+        printf("\n6. PIB per Capita");
+        printf("\nEscolha: ");
+        scanf("%d", &varDisputaAtributo01);
+
+        switch (varDisputaAtributo01)
+        {
+        case 1:
+            varSelecPopulacao = 1;
+            break;
+        case 2:
+            varSelecArea = 1;
+            break;
+        case 3:
+            varSelecPIB = 1;
+            break;
+        case 4:
+            varSelecPontosTuristicos = 1;
+            break;
+        case 5:
+            varSelecDensidadePopulacional = 1;
+            break;
+        case 6:
+            varSelecPIBperCapita = 1;
+            break;
+        default:
+            printf("Opção Inválida!");
+            break;
+        }
+            //SELEÇÃO SEGUNDO ATRIBUTO
+            //O ATRIBUTO JÁ SELECIONADO NÃO DEVE APARECER
+        printf("\nEscolha o segundo Atributo que será comparado:");
+        if(varDisputaAtributo01 != 1) printf("\n1. População");
+        if(varDisputaAtributo01 != 2) printf("\n2. Área");
+        if(varDisputaAtributo01 != 3) printf("\n3. PIB");
+        if(varDisputaAtributo01 != 4) printf("\n4. Pontos Turísticos");
+        if(varDisputaAtributo01 != 5) printf("\n5. Densidade Populacional");
+        if(varDisputaAtributo01 != 6) printf("\n6. PIB per Capita");
+        printf("\nEscolha: ");
+        scanf("%d", &varDisputaAtributo02);
+        //SE O JOGADOR SELECIONAR O MESMO ATRIBUTO QUE O ANTERIOR (MESMO QUE NÃO APARECENDO), O JOGO TEM QUE DAR ERRO.
+        if (varDisputaAtributo01 == varDisputaAtributo02)
+        {
+            printf("Opção Inválida!");
+        } else {
+            switch (varDisputaAtributo02)
+            {
+            case 1:
+                varSelecPopulacao = 1;
+                break;
+            case 2:
+                varSelecArea = 1;
+                break;
+            case 3:
+                varSelecPIB = 1;
+                break;
+            case 4:
+                varSelecPontosTuristicos = 1;
+                break;
+            case 5:
+                varSelecDensidadePopulacional = 1;
+                break;
+            case 6:
+                varSelecPIBperCapita = 1;
+                break;
+            default:
+                printf("Opção Inválida!");
+                break;
+            }
+        }
+        break;
+    default:
+        printf("Opção Inválida!");
+        break;
+    }
+    //COMPARAÇÕES DE VALORES APENAS SE O ATRIBUTO FOI SELECIONADO
+        //POPULAÇÃO
+    if (varSelecPopulacao)
+    {
+        if (varPopulacao_01 == varPopulacao_02)
+        {
+            varEmpate++;
+        } else if (varPopulacao_01 > varPopulacao_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //ÁREA
+    if (varSelecArea)
+    {
+        if (varArea_01 == varArea_02)
+        {
+            varEmpate++;
+        } else if (varArea_01 > varArea_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //PIB
+    if (varSelecPIB)
+    {
+        if (varPIB_01 == varPIB_02)
+        {
+            varEmpate++;
+        } else if (varPIB_01 > varPIB_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //NÚMERO DE PONTOS TURÍSTICOS
+    if (varSelecPontosTuristicos)
+    {
+        if (varPontosTuristicos_01 == varPontosTuristicos_02)
+        {
+            varEmpate++;
+        } else if (varPontosTuristicos_01 > varPontosTuristicos_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //DENSIDADE POPULACIONAL (MENOR)
+    if (varSelecDensidadePopulacional)
+    {
+        if (varDensidadePopulacional_01 == varDensidadePopulacional_02)
+        {
+            varEmpate++;
+        } else if (varDensidadePopulacional_01 < varDensidadePopulacional_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //PIB PER CAPITA
+    if (varSelecPIBperCapita)
+    {
+        if (varPIBperCapita_01 == varPIBperCapita_02)
+        {
+            varEmpate++;
+        } else if (varPIBperCapita_01 > varPIBperCapita_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+        //SUPER PODER (SÓ NA DISPUTA DE TODOS OS ATRIBUTOS)
+    if (varSelecSuperPoder)
+    {
+        if (varSuperPoder_01 == varSuperPoder_02)
+        {
+            varEmpate++;
+        } else if (varSuperPoder_01 > varSuperPoder_02)
+        {
+            varPontuacao_01++;
+        } else {
+            varPontuacao_02++;
+        }
+    }
+    
     //MOSTRANDO OS DADOS DAS CARTAS    
     printf("\nCARTA  1");
     printf("\nCódigo: %s-01", varEstado_01);
@@ -118,192 +357,28 @@ int main() {
     printf("\nPIB per Capita: R$ %.2f", varPIBperCapita_02);
     printf("\nSuper Poder: %.3f", varSuperPoder_02);
 
-    //O JOGADOR FARÁ A SELEÇÃO SE QUER A COMPARAÇÃO DE TODOS OS ATRIBUTOS (CASE 1), OU SE QUER A COMPARAÇÃO DE UM ÚNICO ATRIBUTO (CASE 2).
-    printf("\n\nAgora que as duas cartas foram cadastradas, selecione como deverá ser a disputa:");
-    printf("\n1. Comparação de TODOS os Atributos.");
-    printf("\n2. Comparação de UM Atributo.");
-    printf("\nSelecione: ");
-    scanf("%d", &varSelecaoModoDisputa);
+    printf("\n\nATRIBUTOS COMPARADOS:");
+    printf("\n%s", varSelecPopulacao ? "POPULAÇÃO [S]" : "POPULAÇÃO");
+    printf("\n%s", varSelecArea ? "ÁREA [S]" : "ÁREA");
+    printf("\n%s", varSelecPIB ? "PIB [S]" : "PIB");
+    printf("\n%s", varSelecPontosTuristicos ? "PONTOS TURÍSTICOS [S]" : "PONTOS TURÍSTICOS");
+    printf("\n%s", varSelecDensidadePopulacional ? "DENSIDADE POPULACIONAL [S]" : "DENSIDADE POPULACIONAL");
+    printf("\n%s", varSelecPIBperCapita ? "PIB PER CAPITA [S]" : "PIB PER CAPITA");
+    printf("\n%s\n", varSelecSuperPoder ? "SUPER PODER [S]" : "SUPER PODER");
 
-    switch (varSelecaoModoDisputa)
+    //COMPARAR AS DUAS PONTUAÇÕES E DECIDE QUAL A CARTA VENCEDORA
+    printf("\nA CARTA 1 ( %s - %s ) VENCEU EM %d ATRIBUTO(S).", varCidade_01, varEstado_01, varPontuacao_01);
+    printf("\nA CARTA 2 ( %s - %s ) VENCEU EM %d ATRIBUTO(S).", varCidade_02, varEstado_02, varPontuacao_02);
+    printf("\nHOUVE EMPATE EM %d ATRIBUTO(S).\n", varEmpate);
+
+    if (varPontuacao_01 > varPontuacao_02)
     {
-        //COMPARAÇÃO DE TODOS OS ATRIBUTOS
-    case 1:
-        //AQUI O PROGRAMA VAI ADICIONANDO 1 PONTO PARA CADA RESULTADO DA COMPARAÇÃO
-            //POPULAÇÃO
-        if (varPopulacao_01 < varPopulacao_02){
-            varPontuacao_02++;
-        } else if (varPopulacao_01 > varPopulacao_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-            //ÁREA
-        if (varArea_01 < varArea_02){
-            varPontuacao_02++;
-        } else if (varArea_01 > varArea_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-            //PIB
-        if (varPIB_01 < varPIB_02){
-            varPontuacao_02++;
-        } else if (varPIB_01 > varPIB_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-            //PONTOS TURÍSTICOS
-        if (varPontosTuristicos_01 < varPontosTuristicos_02){
-            varPontuacao_02++;
-        } else if (varPontosTuristicos_01 > varPontosTuristicos_02){
-                varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }        
-            //DENSIDADE POPULACIONAL (MENOR)
-        if (varDensidadePopulacional_01 > varDensidadePopulacional_02){
-            varPontuacao_02++;
-        } else if (varDensidadePopulacional_01 < varDensidadePopulacional_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-            //PIB PER CAPITA
-        if (varPIBperCapita_01 < varPIBperCapita_02){
-            varPontuacao_02++;
-        } else if (varPIBperCapita_01 > varPIBperCapita_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-            //SUPER PODER
-        if (varSuperPoder_01 < varSuperPoder_02){
-            varPontuacao_02++;
-        } else if (varSuperPoder_01 > varSuperPoder_02){
-            varPontuacao_01++;
-        } else {
-            varEmpate++;
-        }
-
-        //COMPARAR AS DUAS PONTUAÇÕES E DECIDE QUAL A CARTA VENCEDORA
-        printf("\nA CARTA 1 ( %s - %s ) VENCEU EM %d ATRIBUTO(S).", varCidade_01, varEstado_01, varPontuacao_01);
-        printf("\nA CARTA 2 ( %s - %s ) VENCEU EM %d ATRIBUTO(S).", varCidade_02, varEstado_02, varPontuacao_02);
-        printf("\nHOUVE EMPATE EM %d ATRIBUTO(S).\n", varEmpate);
-
-        if (varPontuacao_01 > varPontuacao_02)
-        {
-            printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-        } else if (varPontuacao_01 < varPontuacao_02)
-        {
-            printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-        } else {
-            printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****");
-        }
-    break;
-
-        //COMPARAÇÃO DE UM ÚNICO ATRIBUTO
-    case 2:
-        printf("\nEscolha qual Atributo será comparado:");
-        printf("\n1. População");
-        printf("\n2. Área");
-        printf("\n3. PIB");
-        printf("\n4. Pontos Turíticos");
-        printf("\n5. Densidade Populacional (menor)");
-        printf("\n6. PIB per Capita");
-        printf("\nEscolha: ");
-        scanf("%d", &varSelecaoAtributoDisputa);
-
-        switch (varSelecaoAtributoDisputa)
-        {
-        case 1:
-            printf("\nATRIBUTO SELECIONADO: POPULAÇÃO\n");
-            if (varPopulacao_01 > varPopulacao_02){
-                printf("\nPOPULAÇÃO DA CARTA 1 (%lu Hab) É MAIOR QUE A POPULÇÃO DA CARTA 2 (%lu Hab).", varPopulacao_01, varPopulacao_02);
-                printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varPopulacao_01 < varPopulacao_02){
-                printf("\nPOPULAÇÃO DA CARTA 2 (%lu Hab) É MAIOR QUE A POPULAÇÃO DA CARTA 1 (%lu Hab).", varPopulacao_02, varPopulacao_01);
-                printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-                printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
-            }
-        break;
-
-        case 2:
-            printf("\nATRIBUTO SELECIONADO: ÁREA\n");
-            if (varArea_01 > varArea_02){
-                printf("\nÁREA DA CARTA 1 (%.3f km²) É MAIOR QUE A ÁREA DA CARTA 2 (%.3f km²).", varArea_01, varArea_02);
-                printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varArea_01 < varArea_02){
-                printf("\nÁREA DA CARTA 2 (%.3f km²) É MAIOR QUE A ÁREA DA CARTA 1 (%.3f km²).", varArea_02, varArea_01);
-                printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-                printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
-            }
-        break;
-
-        case 3:
-            printf("\nATRIBUTO SELECIONADO: PIB\n");
-            if (varPIB_01 > varPIB_02){
-              printf("\nPIB DA CARTA 1 (R$ %.2f) É MAIOR QUE O PIB DA CARTA 2 (R$ %.2f).", varPIB_01, varPIB_02);
-              printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varPIB_01 < varPIB_02){
-              printf("\nPIB DA CARTA 2 (R$ %.2f) É MAIOR QUE O PIB DA CARTA 1 (R$ %.2f).", varPIB_02, varPIB_01);
-              printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-              printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
-            }
-        break;
-
-        case 4:
-            printf("\nATRIBUTO SELECIONADO: PONTOS TURÍSTICOS\n");
-            if (varPontosTuristicos_01 > varPontosTuristicos_02){
-                printf("\nNÚMERO DE PONTOS TURÍSTICOS DA CARTA 1 (%d) É MAIOR QUE O NÚMERO DE PONTOS TURÍSTICOS DA CARTA 2 (%d).", varPontosTuristicos_01, varPontosTuristicos_02);
-                printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varPontosTuristicos_01 < varPontosTuristicos_02){
-                printf("\nNÚMERO DE PONTOS TURÍSTICOS DA CARTA 2 (%d) É MAIOR QUE O NÚMERO DE PONTOS TURÍSTICOS DA CARTA 1 (%d).", varPontosTuristicos_02, varPontosTuristicos_01);
-                printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-                printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");        
-            }
-        break;
-
-        case 5:
-            printf("\nATRIBUTO SELECIONADO: DENSIDADE POPULACIONAL\n");
-            if (varDensidadePopulacional_01 < varDensidadePopulacional_02){
-                printf("\nDENSIDADE POPULACIONAL DA CARTA 1 (%.1f Hab/km²) É MENOR QUE A DENSIDADE POPULACIONAL DA CARTA 2 (%.1f Hab/km²).", varDensidadePopulacional_01, varDensidadePopulacional_02);
-                printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varDensidadePopulacional_01 > varDensidadePopulacional_02){
-                printf("\nDENSIDADE POPULACIONAL DA CARTA 2 (%.1f Hab/km²) É MENOR QUE A DENSIDADE POPULACIONAL DA CARTA 1 (%.1f Hab/km²).", varDensidadePopulacional_02, varDensidadePopulacional_01);
-                printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-                printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
-            }
-        break;
-
-        case 6:
-            printf("\nATRIBUTO SELECIONADO: PIB PER CAPITA\n");
-            if (varPIBperCapita_01 > varPIBperCapita_02){
-                printf("\nPIB PER CAPITA DA CARTA 1 (R$ %.2f) É MAIOR QUE O PIB PER CAPITA DA CARTA 2 (R$ %.2f).", varPIBperCapita_01, varPIBperCapita_02);
-                printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
-            } else if (varPIBperCapita_01 < varPIBperCapita_02){
-                printf("\nPIB PER CAPITA DA CARTA 2 (R$ %.2f) É MAIOR QUE O PIB PER CAPITA DA CARTA 1 (R$ %.2f).", varPIBperCapita_02, varPIBperCapita_01);
-                printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
-            } else {
-                printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
-            }
-        break;
-        
-        default:
-            printf("\n**Atributo Inválido!**\n");
-        break;
-        }
-    break;
-
-    default:
-        printf("\n**Opção Inválida!**\n");
-    break;
+        printf("\n****PARABÉNS, A CARTA 1 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_01, varEstado_01);
+    } else if (varPontuacao_01 < varPontuacao_02)
+    {
+        printf("\n****PARABÉNS, A CARTA 2 ( %s - %s ) É A VENCEDORA!!****\n", varCidade_02, varEstado_02);
+    } else {
+        printf("\n****CARTA 1 E CARTA 2 EMPATARAM!****\n");
     }
 
     return 0;
